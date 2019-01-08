@@ -1,0 +1,63 @@
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import '~datatables/media/css/jquery.dataTables.min.css';
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.dataTables_wrapper .dataTables_filter {
+  float: left;
+  text-align: right;
+  margin-left: 15px;
+
+  input {
+  	width: 250px;
+  }
+
+}
+
+a.nav-link:hover {
+
+		color: yellow !important;
+	// :hover {
+	// }
+
+}
+
+.tegas {
+	font-family: 'Franklin Gothic Demi' , 'Arial';
+	color: red;
+}
+
+
+
+.nav-link {
+
+  margin-top: -15px;
+
+  > .badge {
+    position: relative;
+    top: 15px;
+    right: 35px;
+  }
+
+  .badge {
+    margin-right: -25px;
+  }
+
+}
+
+@media print {
+  .hide-print {
+    display: none;
+  }
+}

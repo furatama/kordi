@@ -1,0 +1,108 @@
+@extends('app-report')
+
+@section('title')
+    {{'Pemilih] '}}
+    {{($by == 'koorl1') ? 'Oleh ' . $reg->namalengkap . ' ' : ''}}
+    {{($by == 'koorl2') ? 'Oleh ' . $reg->namalengkap . ' ' : ''}}
+    {{($by == 'desa') ? 'Desa ' . $reg->nama . ' ' : ''}}
+    {{($by == 'banjar') ? $reg->nama  . ' ' : ''}}
+    {{date('d/m/Y')}}
+@endsection
+
+@section('content')
+		<div class="my-3 clearfix">
+            <span class="h3 float-left">
+                Data Pemilih 
+                    {{($by == 'koorl1') ? 'Menurut Koordinator' :''}}
+                    {{($by == 'koorl2') ? 'Menurut Asisten' :''}}
+                    {{($by == 'all') ? 'Lengkap' :''}}
+                <div class="h2">
+                    <strong class="tegas">
+                        {{($by == 'koorl1') ? $reg->namalengkap : ''}}
+                        {{($by == 'koorl2') ? $reg->namalengkap : ''}}
+                        {{($by == 'desa') ? 'Desa ' . $reg->nama : ''}}
+                        {{($by == 'banjar') ? $reg->nama : ''}}
+                    </strong>
+                </div>
+                <hr class="mb-0" />
+            </span>
+            <button class="btn btn-lg btn-primary float-right d-print-none" onclick="window.print()">Print</button>
+		</div>
+    <table class="table table-bordered" id="main-table">
+        <thead>
+            <tr>
+                <th></th>
+            	<th>ID</th>
+                <th>NIK</th>
+                <th>Nama</th>
+                @if ($by == 'koorl1')
+                <th>Asisten</th>
+                @endif
+                <th>JK</th>
+                <th>Alamat</th>
+                <th>Banjar</th>
+                <th>Desa</th>
+                <th>TPS</th>
+                <th>Kontak</th>
+            </tr>
+        </thead>
+    </table>
+@stop
+
+@push('scripts')
+<script>
+$(function() {
+    var table = $('#main-table').DataTable({
+        lengthChange: false,
+        ordering: true,
+        paging: false,
+        searching: false,
+        info: false,
+        data: {!! $data->get() !!},
+        aoColumns: [
+            { mdata: 'no', name: 'no', orderable: false, searchable: false,
+                render: function(data, type, row, meta) {
+                    return meta.row + 1
+                }
+            },
+        	{ data: 'id', name: 'id', visible: false, orderable: false, searchable: false },
+            { data: 'nik', name: 'nik' },
+            { data: 'namalengkap', name: 'namalengkap' },
+            @if ($by == 'koorl1')
+            { data: 'koorl2.namalengkap', name: 'koorl2.namalengkap' },
+            @endif
+            { 
+            	data: 'jeniskelamin', name: 'jeniskelamin', 
+            	render: function(data, type, row, meta) {
+            		return data == 'L' ? 'Laki-Laki' : (data == 'P' ? 'Perempuan' : 'Lainnya')
+            	}
+            },
+            { data: 'alamat', name: 'alamat' },
+            { data: 'banjar.nama', name: 'banjar.nama' },
+            { data: 'desa.nama', name: 'desa.nama' },
+            { data: 'tps.nama', name: 'tps.nama' },
+            { 
+            	data: 'kontak', name: 'kontak', 
+            	render: function(data, type, row, meta) {
+            		let s = ''
+                    let cnvtd = data.replace(/&quot;/g, '\"');
+                    obj = JSON.parse(cnvtd);
+            		Object.keys(obj).forEach(function(k){
+                        if (obj[k] != null && obj[k]['kontak'] != null)
+					       s = `${s} <b>${obj[k]['tipe']}</b>: ${obj[k]['kontak']} <br/>`;
+					}); 
+            		return s;
+            	}
+            },
+        ],
+    });
+
+    table.on( 'order.dt search.dt', function () {
+        table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    } ).draw();
+
+});
+</script>
+@endpush
