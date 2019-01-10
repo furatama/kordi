@@ -79,6 +79,17 @@ Route::get('relawan/banjar/{idbanjar}/fetch', 'RelawanController@fetchForBanjar'
 Route::get('relawan/report/{by}/{id}', 'RelawanController@report')->name('relawan.report');
 Route::resource('relawan','RelawanController');
 
+Route::get('keybanjar/fetch', [
+	'as'=>'keybanjar.fetch',
+	'uses'=>'KeyBanjarController@fetch'
+]);
+Route::get('keybanjar/desa/{iddesa}', 'KeyBanjarController@showByDesa')->name('keybanjar.desa');
+Route::get('keybanjar/desa/{iddesa}/fetch', 'KeyBanjarController@fetchForDesa')->name('keybanjar.desa.fetch');
+Route::get('keybanjar/banjar/{idbanjar}', 'KeyBanjarController@showByBanjar')->name('keybanjar.banjar');
+Route::get('keybanjar/banjar/{idbanjar}/fetch', 'KeyBanjarController@fetchForBanjar')->name('keybanjar.banjar.fetch');
+Route::get('keybanjar/report/{by}/{id}', 'KeyBanjarController@report')->name('keybanjar.report');
+Route::resource('keybanjar','KeyBanjarController');
+
 Route::get('cetak/{from}/{source}/{id}','CetakController@perform')->name('cetak.detail');
 Route::get('cetak/{from}','CetakController@perform')->name('cetak');
 

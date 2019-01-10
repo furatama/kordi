@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Validator;
 use App\KeyBanjar;
 use Illuminate\Http\Request;
+use Kris\LaravelFormBuilder\FormBuilder;
+use Yajra\Datatables\Datatables;
+use App\FormKeyBanjar;
+use Illuminate\Validation\Rule;
 
 class KeyBanjarController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +24,7 @@ class KeyBanjarController extends Controller
      */
     public function index()
     {
-        //
+        return view('keybanjar.index',['by'=>'all','id'=>'all']);
     }
 
     /**
@@ -22,9 +32,17 @@ class KeyBanjarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(FormBuilder $formBuilder)
     {
-        //
+        if (!Auth::user()->hasAccess('L1C'))
+            return redirect('keybanjar');
+        $form = $formBuilder->create(FormKeyBanjar::class, [
+            'method' => 'POST',
+            'model' => $mdata,
+            'url' => route('keybanjar.store'),
+        ]);
+
+        return view('keybanjar.create', compact('form'));
     }
 
     /**
@@ -33,9 +51,31 @@ class KeyBanjarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, FormBuilder $formBuilder)
     {
-        //
+
+        $form = $formBuilder->create(FormKeyBanjar::class);
+
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $this->validate($request, [
+            'namalengkap' => 'required',
+            'nik' => 'required|unique:keybanjar|max:16|min:16',
+        ], [
+            'nik.required' => 'NIK masih kosong.',
+            'nik.max' => 'NIK harus 16 digit.',
+            'nik.min' => 'NIK harus 16 digit.',
+            'nik.unique' => 'NIK sudah dipakai.',
+            'namalengkap.required' => 'Nama masih kosong.',
+        ]);
+
+        $data = $request->all();
+        $data['kontak'] = json_encode($data['kontak']);
+        $mdata = KeyBanjar::create($data);
+
+        return redirect()->route('keybanjar.index');
     }
 
     /**
@@ -46,7 +86,7 @@ class KeyBanjarController extends Controller
      */
     public function show(KeyBanjar $keyBanjar)
     {
-        //
+     
     }
 
     /**
@@ -55,9 +95,20 @@ class KeyBanjarController extends Controller
      * @param  \App\KeyBanjar  $keyBanjar
      * @return \Illuminate\Http\Response
      */
-    public function edit(KeyBanjar $keyBanjar)
+    public function edit($id, FormBuilder $formBuilder)
     {
-        //
+        if (!Auth::user()->hasAccess('L1U'))
+            return redirect('keybanjar');
+        $mdata = KeyBanjar::find($id);
+        $kontak = json_decode($mdata['kontak'],true);
+        $mdata['kontak'] = $kontak;
+        $form = $formBuilder->create(FormKeyBanjar::class, [
+            'method' => 'PATCH',
+            'model' => $mdata,
+            'url' => route('keybanjar.update',$id),
+        ]);
+
+        return view('keybanjar.create', compact('form'));
     }
 
     /**
@@ -67,9 +118,32 @@ class KeyBanjarController extends Controller
      * @param  \App\KeyBanjar  $keyBanjar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, KeyBanjar $keyBanjar)
+    public function update(Request $request, $id, FormBuilder $formBuilder)
     {
-        //
+        $form = $formBuilder->create(FormKeyBanjar::class);
+
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $this->validate($request, [
+            'namalengkap' => 'required',
+            'nik' => ['required','max:16','min:16',Rule::unique('relawan')->ignore($id)],
+        ], [
+            'nik.required' => 'NIK masih kosong.',
+            'nik.max' => 'NIK harus 16 digit.',
+            'nik.min' => 'NIK harus 16 digit.',
+            'nik.unique' => 'NIK sudah dipakai.',
+            'namalengkap.required' => 'Nama masih kosong.',
+        ]);
+
+        $data = $request->all();
+        $data['kontak'] = json_encode($data['kontak']);
+        $mdata = KeyBanjar::findorfail($id);
+        $mdata->fill($data);
+        $mdata->save();
+
+        return redirect()->route('keybanjar.index');
     }
 
     /**
@@ -78,8 +152,74 @@ class KeyBanjarController extends Controller
      * @param  \App\KeyBanjar  $keyBanjar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KeyBanjar $keyBanjar)
+    public function destroy($id)
     {
-        //
+        if (!Auth::user()->hasAccess('L1D'))
+            return redirect('keybanjar');
+        // echo "destroy";
+        $mdata = KeyBanjar::findorfail($id);
+        $mdata->delete();
+
+        return redirect()->route('keybanjar.index');
+    }
+
+    public function fetch()
+    {
+        $query = KeyBanjar::with(['banjar','desa','tps'])->select('keybanjar.*');
+
+        return Datatables::of($query)->make(true);
+    }
+
+    public function showByDesa($id)
+    {
+     
+        $mtableref = route('keybanjar.desa.fetch',$id);
+        // die($mtableref);
+        $reg = \App\Desa::where('id',$id)->first();
+        $by = 'desa';
+        return view('keybanjar.index', compact('mtableref','reg','by','id'));
+
+    }
+
+    public function fetchForDesa($id)
+    {
+        $query = KeyBanjar::with(['banjar','desa','tps'])->select('keybanjar.*')->where('keybanjar.iddesa','=',$id);
+
+        return Datatables::of($query)->make(true);
+    }
+
+    public function showByBanjar($id)
+    {
+     
+        $mtableref = route('keybanjar.banjar.fetch',$id);
+        // die($mtableref);
+        $reg = \App\Banjar::where('id',$id)->first();
+        $by = 'banjar';
+        return view('keybanjar.index', compact('mtableref','reg','by','id'));
+
+    }
+
+    public function fetchForBanjar($id)
+    {
+        $query = KeyBanjar::with(['banjar','desa','tps'])->select('keybanjar.*')->where('keybanjar.idbanjar','=',$id);
+
+        return Datatables::of($query)->make(true);
+    }
+
+    public function report($by,$id) {
+
+        $data = KeyBanjar::with(['banjar','desa','tps'])->select('keybanjar.*');
+        if ($by == 'desa') {
+            $data = KeyBanjar::with(['banjar','desa','tps'])->select('keybanjar.*')->where('keybanjar.iddesa','=',$id);
+            $reg = \App\Desa::where('id',$id)->first();
+        } elseif ($by == 'banjar') {
+            $data = KeyBanjar::with(['banjar','desa','tps'])->select('keybanjar.*')->where('keybanjar.idbanjar','=',$id);
+            $reg = \App\Banjar::where('id',$id)->first();
+        }
+
+        // dd($data->get()->toArray());
+        // die();
+        return view('keybanjar.report', compact('data','by','reg'));
+
     }
 }

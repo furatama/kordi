@@ -25,7 +25,7 @@ use Kris\LaravelFormBuilder\Form;
 // }
 
 
-class FormRelawan extends Form
+class FormKeyBanjar extends Form
 {
     public function buildForm()
     {
@@ -42,36 +42,26 @@ class FormRelawan extends Form
             'errors' => ['class' => 'text-danger col-md-8 offset-md-3'],
         ]);
 
-        $this->add('jeniskelamin', 'choice', [
-            'label' => 'Jenis Kelamin',
-            'choices' => ['L' => 'Laki-Laki', 'P' => 'Perempuan'],
-            'expanded' => true,
-            'multiple' => false
+        $this->add('iddesa', 'select', [
+            'label' => 'Desa',
+            'attr' => ['id' => 'desa'],
+            'choices' => Desa::pluck('nama', 'id')->all(),
+            'empty_value' => '== Pilih Desa =='
         ]);
 
-        $this->add('alamat', 'text', [
-            'label' => 'Alamat',
-            'attr' => ['placeholder' => 'Alamat']
+        $this->add('idbanjar', 'select', [
+            'label' => 'Banjar',
+            'attr' => ['id' => 'banjar'],
+            'choices' => Banjar::pluck('nama', 'id')->all(),
+            'empty_value' => '== Pilih Banjar =='
         ]);
 
-        $this->add('keterangan', 'textarea', [
-            'label' => 'Keterangan',
-            'attr' => ['placeholder' => 'Keterangan']
-        ]);
-
-        $this->add('kontak', 'collection', [
-            
-                'label' => 'Kontak',
-                'type' => 'form',
-                'wrapper' => ['class' => 'form-group'],
-                'label_attr' => ['class'=>'col-sm-2 text-right'],
-                'options' => [    // these are options for a single type
-                    'class' => 'App\ContactForm',
-                    'wrapper' => ['class' => 'col-sm-12 row'],
-                    'label' => false,
-                ]
-            
-        ]);
+        $this->add('jabatan', 'select', [
+                'label' => 'Key',
+                'attr' => ['id' => 'jabatan'],
+                'choices' => ['TK' => 'Tokoh Kharismatik','PR'=>'Perempuan','PM' => 'Pemuda'],
+                'empty_value' => '== Pilih Key =='
+            ])
 
         $this->add('submit', 'submit', [
             'label' => 'Simpan Data',

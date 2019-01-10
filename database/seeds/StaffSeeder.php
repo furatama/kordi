@@ -13,9 +13,9 @@ class StaffSeeder extends Seeder
     {
         //
     		DB::table('users')->insert([
-            ['username' => "superadmin",'password' => bcrypt('superadmin'), 'access' => '0123456789'],
-            ['username' => "admin",'password' => bcrypt('admin'), 'access' => '0123456789'],
-            ['username' => "staff",'password' => bcrypt('staff'), 'access' => '0123456789'],
+            ['username' => "superadmin",'password' => bcrypt('superadmin'), 'access' => 'L1C,L1R,L1D,L1U,L2C,L2R,L2D,L2U,PMC,PMR,PMD,PMU,SDR,SBR,RLC,RLU,RLD,RLR,A,SA'],
+            ['username' => "admin",'password' => bcrypt('admin'), 'access' => 'L1C,L1R,L1D,L1U,L2C,L2R,L2D,L2U,PMC,PMR,PMD,PMU,SDR,SBR,RLC,RLU,RLD,RLR,A'],
+            ['username' => "staff",'password' => bcrypt('staff'), 'access' => 'L1C,L1R,L1D,L1U,L2C,L2R,L2D,L2U,PMC,PMR,PMD,PMU,SDR,SBR,RLC,RLU,RLD,RLR'],
         ]);
     }
 }
