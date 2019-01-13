@@ -90,6 +90,17 @@ Route::get('keybanjar/banjar/{idbanjar}/fetch', 'KeyBanjarController@fetchForBan
 Route::get('keybanjar/report/{by}/{id}', 'KeyBanjarController@report')->name('keybanjar.report');
 Route::resource('keybanjar','KeyBanjarController');
 
+Route::get('keykomunitas/fetch', [
+	'as'=>'keykomunitas.fetch',
+	'uses'=>'KeyKomunitasController@fetch'
+]);
+Route::get('keykomunitas/desa/{iddesa}', 'KeyKomunitasController@showByDesa')->name('keykomunitas.desa');
+Route::get('keykomunitas/desa/{iddesa}/fetch', 'KeyKomunitasController@fetchForDesa')->name('keykomunitas.desa.fetch');
+Route::get('keykomunitas/banjar/{idbanjar}', 'KeyKomunitasController@showByBanjar')->name('keykomunitas.banjar');
+Route::get('keykomunitas/banjar/{idbanjar}/fetch', 'KeyKomunitasController@fetchForBanjar')->name('keykomunitas.banjar.fetch');
+Route::get('keykomunitas/report/{by}/{id}', 'KeyKomunitasController@report')->name('keykomunitas.report');
+Route::resource('keykomunitas','KeyKomunitasController');
+
 Route::get('cetak/{from}/{source}/{id}','CetakController@perform')->name('cetak.detail');
 Route::get('cetak/{from}','CetakController@perform')->name('cetak');
 

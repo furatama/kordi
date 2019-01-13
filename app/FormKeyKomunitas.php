@@ -25,7 +25,7 @@ use Kris\LaravelFormBuilder\Form;
 // }
 
 
-class FormKeyBanjar extends Form
+class FormKeyKomunitas extends Form
 {
     public function buildForm()
     {
@@ -42,25 +42,16 @@ class FormKeyBanjar extends Form
             'errors' => ['class' => 'text-danger col-md-8 offset-md-3'],
         ]);
 
-        $this->add('iddesa', 'select', [
-            'label' => 'Desa',
-            'attr' => ['id' => 'desa'],
-            'choices' => Desa::pluck('nama', 'id')->all(),
-            'empty_value' => '== Pilih Desa =='
+        $this->add('komunitas', 'text', [
+            'label' => 'Nama Komunitas',
+            'attr' => ['placeholder' => 'Nama Komunitas'],
+            'errors' => ['class' => 'text-danger col-md-8 offset-md-3'],
         ]);
 
-        $this->add('idbanjar', 'select', [
-            'label' => 'Banjar',
-            'attr' => ['id' => 'banjar'],
-            'choices' => Banjar::pluck('nama', 'id')->all(),
-            'empty_value' => '== Pilih Banjar =='
-        ]);
-
-        $this->add('jabatan', 'select', [
-                'label' => 'Key',
-                'attr' => ['id' => 'jabatan'],
-                'choices' => ['TK' => 'Tokoh Kharismatik','PR'=>'Perempuan','PM' => 'Pemuda'],
-                'empty_value' => '== Pilih Key =='
+        $this->add('jabatan', 'text', [
+            'label' => 'Jabatan',
+            'attr' => ['placeholder' => 'Jabatan'],
+            'errors' => ['class' => 'text-danger col-md-8 offset-md-3'],
         ]);
 
         $this->add('submit', 'submit', [

@@ -28,10 +28,8 @@
                 <th>ID</th>
                 <th>Nama</th>
                 <th>NIK</th>
-                <th>Desa</th>
-                <th>Banjar</th>
-                <th>Key</th>
-                <th>Action</th>
+                <th>Komunitas</th>
+                <th>Jabatan</th>
             </tr>
         </thead>
     </table>
@@ -45,7 +43,7 @@ $(function() {
         lengthMenu: [ 10,20,30 ],
         processing: true,
         serverSide: true,
-        ajax: '{!! isset($mtableref) ? $mtableref : route('keybanjar.fetch') !!}',
+        ajax: '{!! isset($mtableref) ? $mtableref : route('keykomunitas.fetch') !!}',
         aoColumns: [
             { mdata: 'no', name: 'no', orderable: false, searchable: false,
                 render: function(data, type, row, meta) {
@@ -55,17 +53,8 @@ $(function() {
             { data: 'id', name: 'id', visible: false, orderable: false, searchable: false },
             { data: 'nama', name: 'nama' },
             { data: 'nik', name: 'nik' },
-            { data: 'desa.nama', name: 'desa.nama' },
-            { data: 'banjar.nama', name: 'banjar.nama' },
-            { 
-                data: 'jabatan', name: 'jabatan', 
-                render: function(data, type, row, meta) {
-                    if (data == 'TK') return 'Tokoh Kharismatik';
-                    if (data == 'PM') return 'Pemuda';
-                    if (data == 'PR') return 'Perempuan';
-                    return data;
-                }
-            },
+            { data: 'komunitas', name: 'komunitas' },
+            { data: 'jabatan', name: 'jabatan' },
         ],
     });
 

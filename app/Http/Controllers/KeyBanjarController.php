@@ -36,6 +36,7 @@ class KeyBanjarController extends Controller
     {
         if (!Auth::user()->hasAccess('L1C'))
             return redirect('keybanjar');
+        $mdata = [];
         $form = $formBuilder->create(FormKeyBanjar::class, [
             'method' => 'POST',
             'model' => $mdata,
@@ -61,18 +62,17 @@ class KeyBanjarController extends Controller
         }
 
         $this->validate($request, [
-            'namalengkap' => 'required',
-            'nik' => 'required|unique:keybanjar|max:16|min:16',
+            'nama' => 'required',
+            'nik' => 'max:16|min:16',
         ], [
             'nik.required' => 'NIK masih kosong.',
             'nik.max' => 'NIK harus 16 digit.',
             'nik.min' => 'NIK harus 16 digit.',
             'nik.unique' => 'NIK sudah dipakai.',
-            'namalengkap.required' => 'Nama masih kosong.',
+            'nama.required' => 'Nama masih kosong.',
         ]);
 
         $data = $request->all();
-        $data['kontak'] = json_encode($data['kontak']);
         $mdata = KeyBanjar::create($data);
 
         return redirect()->route('keybanjar.index');
@@ -86,7 +86,7 @@ class KeyBanjarController extends Controller
      */
     public function show(KeyBanjar $keyBanjar)
     {
-     
+        
     }
 
     /**
@@ -127,18 +127,17 @@ class KeyBanjarController extends Controller
         }
 
         $this->validate($request, [
-            'namalengkap' => 'required',
+            'nama' => 'required',
             'nik' => ['required','max:16','min:16',Rule::unique('relawan')->ignore($id)],
         ], [
             'nik.required' => 'NIK masih kosong.',
             'nik.max' => 'NIK harus 16 digit.',
             'nik.min' => 'NIK harus 16 digit.',
             'nik.unique' => 'NIK sudah dipakai.',
-            'namalengkap.required' => 'Nama masih kosong.',
+            'nama.required' => 'Nama masih kosong.',
         ]);
 
         $data = $request->all();
-        $data['kontak'] = json_encode($data['kontak']);
         $mdata = KeyBanjar::findorfail($id);
         $mdata->fill($data);
         $mdata->save();
@@ -165,7 +164,7 @@ class KeyBanjarController extends Controller
 
     public function fetch()
     {
-        $query = KeyBanjar::with(['banjar','desa','tps'])->select('keybanjar.*');
+        $query = KeyBanjar::with(['banjar','desa'])->select('keybanjar.*');
 
         return Datatables::of($query)->make(true);
     }
@@ -183,7 +182,7 @@ class KeyBanjarController extends Controller
 
     public function fetchForDesa($id)
     {
-        $query = KeyBanjar::with(['banjar','desa','tps'])->select('keybanjar.*')->where('keybanjar.iddesa','=',$id);
+        $query = KeyBanjar::with(['banjar','desa'])->select('keybanjar.*')->where('keybanjar.iddesa','=',$id);
 
         return Datatables::of($query)->make(true);
     }
@@ -201,19 +200,19 @@ class KeyBanjarController extends Controller
 
     public function fetchForBanjar($id)
     {
-        $query = KeyBanjar::with(['banjar','desa','tps'])->select('keybanjar.*')->where('keybanjar.idbanjar','=',$id);
+        $query = KeyBanjar::with(['banjar','desa'])->select('keybanjar.*')->where('keybanjar.idbanjar','=',$id);
 
         return Datatables::of($query)->make(true);
     }
 
     public function report($by,$id) {
 
-        $data = KeyBanjar::with(['banjar','desa','tps'])->select('keybanjar.*');
+        $data = KeyBanjar::with(['banjar','desa'])->select('keybanjar.*');
         if ($by == 'desa') {
-            $data = KeyBanjar::with(['banjar','desa','tps'])->select('keybanjar.*')->where('keybanjar.iddesa','=',$id);
+            $data = KeyBanjar::with(['banjar','desa'])->select('keybanjar.*')->where('keybanjar.iddesa','=',$id);
             $reg = \App\Desa::where('id',$id)->first();
         } elseif ($by == 'banjar') {
-            $data = KeyBanjar::with(['banjar','desa','tps'])->select('keybanjar.*')->where('keybanjar.idbanjar','=',$id);
+            $data = KeyBanjar::with(['banjar','desa'])->select('keybanjar.*')->where('keybanjar.idbanjar','=',$id);
             $reg = \App\Banjar::where('id',$id)->first();
         }
 

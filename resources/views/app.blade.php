@@ -126,17 +126,17 @@
                 }
             }
 
-            banjar.onchange = function() {
-                let id = this.value;
-                let filtered = listTPS.filter(tps => tps.idbanjar == id);
-                for (let opt of [...tps.querySelectorAll('option')]) {
-                    if (filtered.find(tps => tps.id == opt.value) == undefined) {
-                        opt.hidden = true;
-                    } else {
-                        opt.hidden = false;
-                    }
-                }
-            }
+            // banjar.onchange = function() {
+            //     let id = this.value;
+            //     let filtered = listTPS.filter(tps => tps.idbanjar == id);
+            //     for (let opt of [...tps.querySelectorAll('option')]) {
+            //         if (filtered.find(tps => tps.id == opt.value) == undefined) {
+            //             opt.hidden = true;
+            //         } else {
+            //             opt.hidden = false;
+            //         }
+            //     }
+            // }
 
             window.onload = function() {
                 let id = desa.value;
@@ -149,15 +149,15 @@
                     }
                 }
 
-                id = banjar.value;
-                filtered = listTPS.filter(tps => tps.idbanjar == id);
-                for (let opt of [...tps.querySelectorAll('option')]) {
-                    if (filtered.find(tps => tps.id == opt.value) == undefined) {
-                        opt.hidden = true;
-                    } else {
-                        opt.hidden = false;
-                    }
-                }
+                // id = banjar.value;
+                // filtered = listTPS.filter(tps => tps.idbanjar == id);
+                // for (let opt of [...tps.querySelectorAll('option')]) {
+                //     if (filtered.find(tps => tps.id == opt.value) == undefined) {
+                //         opt.hidden = true;
+                //     } else {
+                //         opt.hidden = false;
+                //     }
+                // }
 
             }
 
