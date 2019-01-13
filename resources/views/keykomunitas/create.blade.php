@@ -9,7 +9,7 @@
 		{!! form_start($form); !!}
 		<div class="row">
 			<div class="col-md-6">
-				{!! form_until($form, 'nama'); !!}
+				{!! form_until($form, 'jabatan'); !!}
 			</div>
 			<div class="col-md-6 border-left">
     		{!! form_until($form, 'submit'); !!}

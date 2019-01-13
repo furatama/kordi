@@ -27,6 +27,8 @@
                 <th>NIK</th>
                 <th>Komunitas</th>
                 <th>Jabatan</th>
+                <th>Potensi</th>
+                <th>Catatan</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -53,6 +55,13 @@ $(function() {
             { data: 'nik', name: 'nik' },
             { data: 'komunitas', name: 'komunitas' },
             { data: 'jabatan', name: 'jabatan' },
+            { data: 'suara', name: 'suara' },
+            { data: 'keterangan', name: 'keterangan',
+                render: function(data, type, row, meta) {
+                    if (data == null || data == undefined) return '';
+                    return data.length > 30 ? data.substr(0,30) + '...' : data
+                }
+            },
             { 
             	mdata: 'action', name: 'action', orderable: false, searchable: false,
             	render: function(data, type, row, meta) {

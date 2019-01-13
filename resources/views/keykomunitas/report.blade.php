@@ -30,6 +30,8 @@
                 <th>NIK</th>
                 <th>Komunitas</th>
                 <th>Jabatan</th>
+                <th>Potensi</th>
+                <th>Catatan</th>
             </tr>
         </thead>
     </table>
@@ -55,6 +57,13 @@ $(function() {
             { data: 'nik', name: 'nik' },
             { data: 'komunitas', name: 'komunitas' },
             { data: 'jabatan', name: 'jabatan' },
+            { data: 'suara', name: 'suara' },
+            { data: 'keterangan', name: 'keterangan',
+                render: function(data, type, row, meta) {
+                    if (data == null || data == undefined) return '';
+                    return data.length > 30 ? data.substr(0,30) + '...' : data
+                }
+            },
         ],
     });
 

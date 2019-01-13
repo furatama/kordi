@@ -63,7 +63,6 @@ class KeyKomunitasController extends Controller
 
         $this->validate($request, [
             'nama' => 'required',
-            'nik' => 'max:16|min:16',
         ], [
             'nik.required' => 'NIK masih kosong.',
             'nik.max' => 'NIK harus 16 digit.',
@@ -128,7 +127,6 @@ class KeyKomunitasController extends Controller
 
         $this->validate($request, [
             'nama' => 'required',
-            'nik' => ['required','max:16','min:16',Rule::unique('relawan')->ignore($id)],
         ], [
             'nik.required' => 'NIK masih kosong.',
             'nik.max' => 'NIK harus 16 digit.',

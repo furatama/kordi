@@ -62,7 +62,8 @@ $(function() {
             { data: 'alamat', name: 'alamat' },
             { data: 'keterangan', name: 'keterangan',
                 render: function(data, type, row, meta) {
-                    return data.length > 30 ? data.substr(0,30) + '...' : data.substr
+                    if (data == null || data == undefined) return '';
+                    return data.length > 30 ? data.substr(0,30) + '...' : data
                 }
             },
             { 

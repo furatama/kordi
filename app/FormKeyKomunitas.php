@@ -54,6 +54,17 @@ class FormKeyKomunitas extends Form
             'errors' => ['class' => 'text-danger col-md-8 offset-md-3'],
         ]);
 
+        $this->add('suara', 'number', [
+            'label' => 'Perkiraan Suara',
+            'attr' => ['placeholder' => 'Suara'],
+            'errors' => ['class' => 'text-danger col-md-8 offset-md-3'],
+        ]);
+
+        $this->add('keterangan', 'textarea', [
+            'label' => 'Catatan',
+            'attr' => ['placeholder' => 'Catatan']
+        ]);
+
         $this->add('submit', 'submit', [
             'label' => 'Simpan Data',
             'wrapper' => ['class' => 'float-right'],

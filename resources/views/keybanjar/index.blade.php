@@ -28,6 +28,8 @@
                 <th>Desa</th>
                 <th>Banjar</th>
                 <th>Key</th>
+                <th>Potensi</th>
+                <th>Catatan</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -61,6 +63,13 @@ $(function() {
                     if (data == 'PM') return 'Pemuda';
                     if (data == 'PR') return 'Perempuan';
                     return data;
+                }
+            },
+            { data: 'suara', name: 'suara' },
+            { data: 'keterangan', name: 'keterangan',
+                render: function(data, type, row, meta) {
+                    if (data == null || data == undefined) return '';
+                    return data.length > 30 ? data.substr(0,30) + '...' : data;
                 }
             },
             { 
