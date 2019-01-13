@@ -198,5 +198,14 @@
                 </div>
             </div>
         </div> -->
+        <footer class="footer" style="position: absolute;bottom:0;font-size: 11px">
+            Yang masih kurang: 
+ Tabel data perolehan suara per caleg per tps
+| impor data pemilih (dr .xls atau .csv)
+| ekspor data ke .xls atau csv
+| backup data (ke .sql atau apa aja)
+| tabel perkiraan jmlh pendukung per banjar
+| tabel perkiraan jmlh pendukung per komunitas
+        </footer>
     </body>
 </html>
