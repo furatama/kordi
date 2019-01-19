@@ -101,6 +101,17 @@ Route::get('keykomunitas/banjar/{idbanjar}/fetch', 'KeyKomunitasController@fetch
 Route::get('keykomunitas/report/{by}/{id}', 'KeyKomunitasController@report')->name('keykomunitas.report');
 Route::resource('keykomunitas','KeyKomunitasController');
 
+Route::get('suara/fetch', [
+	'as'=>'suara.fetch',
+	'uses'=>'SuaraController@fetch'
+]);
+Route::get('suara/desa/{iddesa}', 'SuaraController@showByDesa')->name('suara.desa');
+Route::get('suara/desa/{iddesa}/fetch', 'SuaraController@fetchForDesa')->name('suara.desa.fetch');
+Route::get('suara/banjar/{idbanjar}', 'SuaraController@showByBanjar')->name('suara.banjar');
+Route::get('suara/banjar/{idbanjar}/fetch', 'SuaraController@fetchForBanjar')->name('suara.banjar.fetch');
+Route::get('suara/report/{by}/{id}', 'SuaraController@report')->name('suara.report');
+Route::resource('suara','SuaraController');
+
 Route::get('cetak/{from}/{source}/{id}','CetakController@perform')->name('cetak.detail');
 Route::get('cetak/{from}','CetakController@perform')->name('cetak');
 
@@ -136,6 +147,32 @@ Route::get('master/user/fetch','UserController@fetch')->name('master.user.fetch'
 Route::get('master/desa/fetch','DesaController@fetch')->name('master.desa.fetch')->middleware('auth');
 Route::get('master/banjar/fetch','BanjarController@fetch')->name('master.banjar.fetch')->middleware('auth');
 Route::get('master/tps/fetch','TPSController@fetch')->name('master.tps.fetch')->middleware('auth');
+
+Route::resource('master/partai','PartaiController',[
+	'names' => [
+		'index' => 'master.partai.index',
+		'create' => 'master.partai.create',
+		// 'store' => 'master.partai',
+		// 'edit' => 'master.partai.edit',
+		// 'update' => 'master.partai.edit',
+		// 'delete' => 'master.partai.delete',
+	]
+]);
+Route::get('master/partai/report','PartaiController@report')->name('master.partai.report')->middleware('auth');
+Route::get('master/partai/fetch','PartaiController@fetch')->name('master.partai.fetch')->middleware('auth');
+
+Route::resource('master/caleg','CalegController',[
+	'names' => [
+		'index' => 'master.caleg.index',
+		'create' => 'master.caleg.create',
+		// 'store' => 'master.caleg',
+		// 'edit' => 'master.caleg.edit',
+		// 'update' => 'master.caleg.edit',
+		// 'delete' => 'master.caleg.delete',
+	]
+]);
+Route::get('master/caleg/report','CalegController@report')->name('master.caleg.report')->middleware('auth');
+Route::get('master/caleg/fetch','CalegController@fetch')->name('master.caleg.fetch')->middleware('auth');
 
 // Route::get('login', 'SigninController@form')->name('login');
 // Route::get('logout', 'SigninController@out')->name('logout');

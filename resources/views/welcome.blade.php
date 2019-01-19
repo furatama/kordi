@@ -113,13 +113,19 @@
                             <li><a class="h4 text-info" href="{{route('pemilih.index')}}">Pemilih</a></li>
                             @endif
                             @if (Auth::user()->hasAccess('RLR'))
+                            <hr/>
                             <li><a class="h4 text-info" href="{{route('relawan.index')}}">Relawan</a></li>
                             @endif
+                            <hr/>
                             @if (Auth::user()->hasAccess('KBR'))
                             <li><a class="h4 text-info" href="{{route('keybanjar.index')}}">Key Person/Banjar</a></li>
                             @endif
                             @if (Auth::user()->hasAccess('KKR'))
                             <li><a class="h4 text-info" href="{{route('keykomunitas.index')}}">Key Person Komunitas</a></li>
+                            @endif
+                            @if (Auth::user()->hasAccess('SUR'))
+                            <hr/>
+                            <li><a class="h4 text-info" href="{{route('suara.index')}}">Input Suara Pemilih</a></li>
                             @endif
                         </ul>
                     </div>
@@ -163,6 +169,8 @@
                             <li><a class="h4 text-info" href="{{route('master.desa')}}">Master Desa</a></li>
                             <li><a class="h4 text-info" href="{{route('master.banjar')}}">Master Banjar</a></li>
                             <li><a class="h4 text-info" href="{{route('master.tps')}}">Master TPS</a></li>
+                            <li><a class="h4 text-info" href="{{route('master.caleg')}}">Master Caleg</a></li>
+                            <li><a class="h4 text-info" href="{{route('master.partai')}}">Master Partai</a></li>
                         </ul>
                     </div>
                     @endif
@@ -204,8 +212,6 @@
 | impor data pemilih (dr .xls atau .csv)
 | ekspor data ke .xls atau csv
 | backup data (ke .sql atau apa aja)
-| tabel perkiraan jmlh pendukung per banjar
-| tabel perkiraan jmlh pendukung per komunitas
         </footer>
     </body>
 </html>
