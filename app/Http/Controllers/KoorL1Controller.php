@@ -134,7 +134,7 @@ class KoorL1Controller extends Controller
 
         $this->validate($request, [
             'namalengkap' => 'required',
-            'nik' => ['required','max:16','min:16',Rule::unique('relawan')->ignore($id)],
+            'nik' => ['required','max:16','min:16',Rule::unique('koorl1')->ignore($id)],
         ], [
             'nik.required' => 'NIK masih kosong.',
             'nik.max' => 'NIK harus 16 digit.',

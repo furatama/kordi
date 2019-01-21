@@ -25,7 +25,7 @@ use Kris\LaravelFormBuilder\Form;
 // }
 
 
-class FormPartai extends Form
+class FormCaleg extends Form
 {
     public function buildForm()
     {
@@ -51,7 +51,7 @@ class FormPartai extends Form
         
         $this->add('foto', 'file', [
             'label' => 'Foto',
-            'attr' => ['placeholder' => 'Foto'],
+            'attr' => ['placeholder' => 'Foto', 'class'=>'col-sm-8 form-control-file'],
             'errors' => ['class' => 'text-danger col-md-8 offset-md-3'],
         ]);
 

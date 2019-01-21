@@ -74,6 +74,8 @@
                       <a class="dropdown-item" href="{{route('master.desa')}}">Master Desa</a>
                       <a class="dropdown-item" href="{{route('master.banjar')}}">Master Banjar</a>
                       <a class="dropdown-item" href="{{route('master.tps')}}">Master TPS</a>
+                      <a class="dropdown-item" href="{{route('master.partai.index')}}">Master Partai</a>
+                      <a class="dropdown-item" href="{{route('master.caleg.index')}}">Master Caleg</a>
                     </div>
                 </li>
                 @endif

@@ -169,8 +169,8 @@
                             <li><a class="h4 text-info" href="{{route('master.desa')}}">Master Desa</a></li>
                             <li><a class="h4 text-info" href="{{route('master.banjar')}}">Master Banjar</a></li>
                             <li><a class="h4 text-info" href="{{route('master.tps')}}">Master TPS</a></li>
-                            <li><a class="h4 text-info" href="{{route('master.caleg')}}">Master Caleg</a></li>
-                            <li><a class="h4 text-info" href="{{route('master.partai')}}">Master Partai</a></li>
+                            <li><a class="h4 text-info" href="{{route('master.caleg.index')}}">Master Caleg</a></li>
+                            <li><a class="h4 text-info" href="{{route('master.partai.index')}}">Master Partai</a></li>
                         </ul>
                     </div>
                     @endif

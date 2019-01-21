@@ -148,31 +148,29 @@ Route::get('master/desa/fetch','DesaController@fetch')->name('master.desa.fetch'
 Route::get('master/banjar/fetch','BanjarController@fetch')->name('master.banjar.fetch')->middleware('auth');
 Route::get('master/tps/fetch','TPSController@fetch')->name('master.tps.fetch')->middleware('auth');
 
+Route::get('master/partai/fetch','PartaiController@fetch')->name('master.partai.fetch')->middleware('auth');
 Route::resource('master/partai','PartaiController',[
 	'names' => [
 		'index' => 'master.partai.index',
 		'create' => 'master.partai.create',
-		// 'store' => 'master.partai',
-		// 'edit' => 'master.partai.edit',
-		// 'update' => 'master.partai.edit',
-		// 'delete' => 'master.partai.delete',
+		'store' => 'master.partai.store',
+		'edit' => 'master.partai.edit',
+		'update' => 'master.partai.update',
+		'delete' => 'master.partai.delete',
 	]
 ]);
-Route::get('master/partai/report','PartaiController@report')->name('master.partai.report')->middleware('auth');
-Route::get('master/partai/fetch','PartaiController@fetch')->name('master.partai.fetch')->middleware('auth');
 
+Route::get('master/caleg/fetch','CalegController@fetch')->name('master.caleg.fetch')->middleware('auth');
 Route::resource('master/caleg','CalegController',[
 	'names' => [
 		'index' => 'master.caleg.index',
 		'create' => 'master.caleg.create',
-		// 'store' => 'master.caleg',
-		// 'edit' => 'master.caleg.edit',
-		// 'update' => 'master.caleg.edit',
-		// 'delete' => 'master.caleg.delete',
+		'store' => 'master.caleg.store',
+		'edit' => 'master.caleg.edit',
+		'update' => 'master.caleg.update',
+		'delete' => 'master.caleg.delete',
 	]
 ]);
-Route::get('master/caleg/report','CalegController@report')->name('master.caleg.report')->middleware('auth');
-Route::get('master/caleg/fetch','CalegController@fetch')->name('master.caleg.fetch')->middleware('auth');
 
 // Route::get('login', 'SigninController@form')->name('login');
 // Route::get('logout', 'SigninController@out')->name('logout');

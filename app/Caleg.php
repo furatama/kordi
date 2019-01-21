@@ -9,15 +9,15 @@ class Caleg extends Model
 {
     use SoftDeletes;
 
-    public $table = "partai";
+    public $table = "caleg";
     protected $primaryKey = "id";
     protected $guarded = [];
     protected $dates = ['deleted_at'];
 
-    // public function banjar()
-    // {
-    //     return $this->hasOne('App\Banjar','id','idbanjar');
-    // }
+    public function partai()
+    {
+        return $this->hasOne('App\Partai','id','idpartai');
+    }
 
     // public function desa()
     // {

@@ -24,7 +24,7 @@ class CalegController extends Controller
      */
     public function index()
     {
-        return view('caleg.index',['by'=>'all','id'=>'all']);
+        return view('master.caleg.index');
     }
 
     /**
@@ -34,16 +34,16 @@ class CalegController extends Controller
      */
     public function create(FormBuilder $formBuilder)
     {
-        if (!Auth::user()->hasAccess('L1C'))
+        if (!Auth::user()->hasAccess('A'))
             return redirect('caleg');
         $mdata = [];
         $form = $formBuilder->create(FormCaleg::class, [
             'method' => 'POST',
             'model' => $mdata,
-            'url' => route('caleg.store'),
+            'url' => route('master.caleg.store'),
         ]);
 
-        return view('caleg.create', compact('form'));
+        return view('master.caleg.create', compact('form'));
     }
 
     /**
@@ -62,19 +62,24 @@ class CalegController extends Controller
         }
 
         $this->validate($request, [
+            'nourut' => 'required',
             'nama' => 'required',
         ], [
-            'nik.required' => 'NIK masih kosong.',
-            'nik.max' => 'NIK harus 16 digit.',
-            'nik.min' => 'NIK harus 16 digit.',
-            'nik.unique' => 'NIK sudah dipakai.',
+            'nourut.required' => 'No Urut masih kosong.',
             'nama.required' => 'Nama masih kosong.',
         ]);
 
         $data = $request->all();
+        // $path = $request->file('foto')->disk('public')->store('upload/foto');
+        if ($request->file('foto') != null) {
+            $path = $request->file('foto')->storeAs(
+                'upload/foto', 'public'
+            );
+            $data['foto'] = $path;
+        }
         $mdata = Caleg::create($data);
 
-        return redirect()->route('caleg.index');
+        return redirect()->route('master.caleg.index');
     }
 
     /**
@@ -96,18 +101,17 @@ class CalegController extends Controller
      */
     public function edit($id, FormBuilder $formBuilder)
     {
-        if (!Auth::user()->hasAccess('L1U'))
+        if (!Auth::user()->hasAccess('A'))
             return redirect('caleg');
         $mdata = Caleg::find($id);
-        $kontak = json_decode($mdata['kontak'],true);
-        $mdata['kontak'] = $kontak;
         $form = $formBuilder->create(FormCaleg::class, [
             'method' => 'PATCH',
             'model' => $mdata,
-            'url' => route('caleg.update',$id),
+            'url' => route('master.caleg.update',$id),
         ]);
+        $img = $mdata['foto'];
 
-        return view('caleg.create', compact('form'));
+        return view('master.caleg.create', compact('form','img'));
     }
 
     /**
@@ -126,21 +130,26 @@ class CalegController extends Controller
         }
 
         $this->validate($request, [
+            'nourut' => 'required',
             'nama' => 'required',
         ], [
-            'nik.required' => 'NIK masih kosong.',
-            'nik.max' => 'NIK harus 16 digit.',
-            'nik.min' => 'NIK harus 16 digit.',
-            'nik.unique' => 'NIK sudah dipakai.',
+            'nourut.required' => 'No Urut masih kosong.',
             'nama.required' => 'Nama masih kosong.',
         ]);
 
         $data = $request->all();
+        if ($request->file('foto') != null) {
+            $path = $request->file('foto')->storeAs(
+                'upload/foto', 'public'
+            );
+            $data['foto'] = $path;
+        }
+
         $mdata = Caleg::findorfail($id);
         $mdata->fill($data);
         $mdata->save();
 
-        return redirect()->route('caleg.index');
+        return redirect()->route('master.caleg.index');
     }
 
     /**
@@ -151,18 +160,18 @@ class CalegController extends Controller
      */
     public function destroy($id)
     {
-        if (!Auth::user()->hasAccess('L1D'))
+        if (!Auth::user()->hasAccess('A'))
             return redirect('caleg');
         // echo "destroy";
         $mdata = Caleg::findorfail($id);
         $mdata->delete();
 
-        return redirect()->route('caleg.index');
+        return redirect()->route('master.caleg.index');
     }
 
     public function fetch()
     {
-        $query = Caleg::select('caleg.*');
+        $query = Caleg::with('partai')->select('caleg.*');
 
         return Datatables::of($query)->make(true);
     }
@@ -170,17 +179,17 @@ class CalegController extends Controller
     public function showByDesa($id)
     {
      
-        $mtableref = route('caleg.desa.fetch',$id);
+        $mtableref = route('master.caleg.desa.fetch',$id);
         // die($mtableref);
         $reg = \App\Desa::where('id',$id)->first();
         $by = 'desa';
-        return view('caleg.index', compact('mtableref','reg','by','id'));
+        return view('master.caleg.index', compact('mtableref','reg','by','id'));
 
     }
 
     public function fetchForDesa($id)
     {
-        $query = Caleg::select('caleg.*')->where('caleg.iddesa','=',$id);
+        $query = Caleg::select('master.caleg.*')->where('master.caleg.iddesa','=',$id);
 
         return Datatables::of($query)->make(true);
     }
@@ -188,35 +197,35 @@ class CalegController extends Controller
     public function showByBanjar($id)
     {
      
-        $mtableref = route('caleg.banjar.fetch',$id);
+        $mtableref = route('master.caleg.banjar.fetch',$id);
         // die($mtableref);
         $reg = \App\Banjar::where('id',$id)->first();
         $by = 'banjar';
-        return view('caleg.index', compact('mtableref','reg','by','id'));
+        return view('master.caleg.index', compact('mtableref','reg','by','id'));
 
     }
 
     public function fetchForBanjar($id)
     {
-        $query = Caleg::select('caleg.*')->where('caleg.idbanjar','=',$id);
+        $query = Caleg::select('master.caleg.*')->where('master.caleg.idbanjar','=',$id);
 
         return Datatables::of($query)->make(true);
     }
 
     public function report($by,$id) {
 
-        $data = Caleg::select('caleg.*');
+        $data = Caleg::select('master.caleg.*');
         if ($by == 'desa') {
-            $data = Caleg::select('caleg.*')->where('caleg.iddesa','=',$id);
+            $data = Caleg::select('master.caleg.*')->where('master.caleg.iddesa','=',$id);
             $reg = \App\Desa::where('id',$id)->first();
         } elseif ($by == 'banjar') {
-            $data = Caleg::select('caleg.*')->where('caleg.idbanjar','=',$id);
+            $data = Caleg::select('master.caleg.*')->where('master.caleg.idbanjar','=',$id);
             $reg = \App\Banjar::where('id',$id)->first();
         }
 
         // dd($data->get()->toArray());
         // die();
-        return view('caleg.report', compact('data','by','reg'));
+        return view('master.caleg.report', compact('data','by','reg'));
 
     }
 }

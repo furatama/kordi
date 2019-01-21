@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class StaffSeeder extends Seeder
+class PartaiSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -21,90 +21,91 @@ class StaffSeeder extends Seeder
 
 
         //
+            $path = 'upload/lambang/';
     		DB::table('partai')->insert([
                 [
                     'nourut' => 1,
                     'nama' => "Partai Kebangkitan Bangsa",
                     'singkatan' => "PKB",
-                    'lambang' => 'partai_1.jpg'
+                    'lambang' => $path . 'partai_1'
                 ],
                 [
                     'nourut' => 2,
                     'nama' => "Partai Gerakan Indonesia Raya",
                     'singkatan' => "Gerindra",
-                    'lambang' => 'partai_2.jpg'
+                    'lambang' => $path . 'partai_2'
                 ],
                 [
                     'nourut' => 3,
                     'nama' => "Partai Demokrasi Indonesia Perjuangan",
                     'singkatan' => "PDIP",
-                    'lambang' => 'partai_3.jpg'
+                    'lambang' => $path . 'partai_3'
                 ],
                 [
                     'nourut' => 4,
                     'nama' => "Partai Golongan Karya",
                     'singkatan' => "Golkar",
-                    'lambang' => 'partai_4.jpg'
+                    'lambang' => $path . 'partai_4'
                 ],
                 [
                     'nourut' => 5,
                     'nama' => "Partai Nasional Demokrat",
                     'singkatan' => "Nasdem",
-                    'lambang' => 'partai_5.jpg'
+                    'lambang' => $path . 'partai_5'
                 ],
                 [
                     'nourut' => 6,
                     'nama' => "Partai Garuda",
                     'singkatan' => "Garuda",
-                    'lambang' => 'partai_6.jpg'
+                    'lambang' => $path . 'partai_6'
                 ],
                 [
                     'nourut' => 7,
                     'nama' => "Partai Berkarya",
                     'singkatan' => "Berkarya",
-                    'lambang' => 'partai_7.jpg'
+                    'lambang' => $path . 'partai_7'
                 ],
                 [
                     'nourut' => 8,
                     'nama' => "Partai Keadilan Sejahtra",
                     'singkatan' => "PKS",
-                    'lambang' => 'partai_8.jpg'
+                    'lambang' => $path . 'partai_8'
                 ],
                 [
                     'nourut' => 9,
                     'nama' => "Partai Persatuan Indonesia",
                     'singkatan' => "Perindo",
-                    'lambang' => 'partai_9.jpg'
+                    'lambang' => $path . 'partai_9'
                 ],
                 [
                     'nourut' => 10,
                     'nama' => "Partai Persatuan Pembangunan",
                     'singkatan' => "PPP",
-                    'lambang' => 'partai_10.jpg'
+                    'lambang' => $path . 'partai_10'
                 ],
                 [
                     'nourut' => 11,
                     'nama' => "Partai Solidaritas Indonesia",
                     'singkatan' => "PSI",
-                    'lambang' => 'partai_11.jpg'
+                    'lambang' => $path . 'partai_11'
                 ],
                 [
                     'nourut' => 12,
                     'nama' => "Partai Amanat Nasional",
                     'singkatan' => "PAN",
-                    'lambang' => 'partai_12.jpg'
+                    'lambang' => $path . 'partai_12'
                 ],
                 [
                     'nourut' => 13,
                     'nama' => "Partai Hati Nurani Rakyat",
                     'singkatan' => "Hanura",
-                    'lambang' => 'partai_13.jpg'
+                    'lambang' => $path . 'partai_13'
                 ],
                 [
                     'nourut' => 14,
                     'nama' => "Partai Demokrat",
                     'singkatan' => "Demokrat",
-                    'lambang' => 'partai_14.jpg'
+                    'lambang' => $path . 'partai_14'
                 ],
         ]);
     }

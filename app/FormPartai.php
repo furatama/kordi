@@ -43,14 +43,14 @@ class FormPartai extends Form
         ]);
 
         $this->add('singkatan', 'text', [
-            'label' => 'Nama Pendek',
-            'attr' => ['placeholder' => 'Nama Pendek'],
+            'label' => 'Sebutan',
+            'attr' => ['placeholder' => 'Sebutan'],
             'errors' => ['class' => 'text-danger col-md-8 offset-md-3'],
         ]);
 
         $this->add('lambang', 'file', [
             'label' => 'Lambang',
-            'attr' => ['placeholder' => 'Lambang'],
+            'attr' => ['placeholder' => 'Lambang', 'class'=>'col-sm-8 form-control-file'],
             'errors' => ['class' => 'text-danger col-md-8 offset-md-3'],
         ]);
 
