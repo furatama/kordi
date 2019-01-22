@@ -148,6 +148,78 @@
                                     </label>
                                   </div>
                                   <div class="form-check">
+                                    <input class="form-check-input" name="access[]" type="checkbox" id="gridCheckC9" value="KBR" checked>
+                                    <label class="form-check-label" for="gridCheckC9">
+                                      Key Banjar (Read)
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" name="access[]" type="checkbox" id="gridCheckC10" value="KBC">
+                                    <label class="form-check-label" for="gridCheckC10">
+                                      Key Banjar (Create)
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" name="access[]" type="checkbox" id="gridCheckC11" value="KBU">
+                                    <label class="form-check-label" for="gridCheckC11">
+                                      Key Banjar (Update)
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" name="access[]" type="checkbox" id="gridCheckC12" value="KBD">
+                                    <label class="form-check-label" for="gridCheckC12">
+                                      Key Banjar (Delete)
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" name="access[]" type="checkbox" id="gridCheckD9" value="KKR" checked>
+                                    <label class="form-check-label" for="gridCheckD9">
+                                      Key Komunitas (Read)
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" name="access[]" type="checkbox" id="gridCheckD10" value="KKC">
+                                    <label class="form-check-label" for="gridCheckD10">
+                                      Key Komunitas (Create)
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" name="access[]" type="checkbox" id="gridCheckD11" value="KKU">
+                                    <label class="form-check-label" for="gridCheckD11">
+                                      Key Komunitas (Update)
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" name="access[]" type="checkbox" id="gridCheckD12" value="KKD">
+                                    <label class="form-check-label" for="gridCheckD12">
+                                      Key Komunitas (Delete)
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" name="access[]" type="checkbox" id="gridCheckE9" value="SUR" checked>
+                                    <label class="form-check-label" for="gridCheckE9">
+                                      Suara (Read)
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" name="access[]" type="checkbox" id="gridCheckE10" value="SUC">
+                                    <label class="form-check-label" for="gridCheckE10">
+                                      Suara (Create)
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" name="access[]" type="checkbox" id="gridCheckE11" value="SUU">
+                                    <label class="form-check-label" for="gridCheckE11">
+                                      Suara (Update)
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" name="access[]" type="checkbox" id="gridCheckE12" value="SUD">
+                                    <label class="form-check-label" for="gridCheckE12">
+                                      Suara (Delete)
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
                                     <input class="form-check-input" name="access[]" type="checkbox" id="gridCheck13" value="SDR" checked>
                                     <label class="form-check-label" for="gridCheck13">
                                       Statistik Desa (Read)

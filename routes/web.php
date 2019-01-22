@@ -105,6 +105,7 @@ Route::get('suara/fetch', [
 	'as'=>'suara.fetch',
 	'uses'=>'SuaraController@fetch'
 ]);
+Route::get('suara/fetch/{idtps}/{idcaleg}', 'SuaraController@fetchOne')->name('suara.fetch1');
 Route::get('suara/desa/{iddesa}', 'SuaraController@showByDesa')->name('suara.desa');
 Route::get('suara/desa/{iddesa}/fetch', 'SuaraController@fetchForDesa')->name('suara.desa.fetch');
 Route::get('suara/banjar/{idbanjar}', 'SuaraController@showByBanjar')->name('suara.banjar');
