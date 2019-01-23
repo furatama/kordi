@@ -50,6 +50,11 @@
                   <a class="nav-link" href="{{route('relawan.index')}}">Relawan <span class="badge {{(App\Relawan::count() <= 60000 ? 'badge-warning' : 'badge-danger')}}">Jumlah: {{App\Relawan::count()}}</span></a>
                 </li>
                 @endif
+                @if (Auth::user()->hasAccess('SUR'))
+                <li class="nav-item active">
+                  <a class="nav-link" href="{{route('suara.index')}}">Suara</a>
+                </li>
+                @endif
                 @if (Auth::user()->hasAccess('SBR') || Auth::user()->hasAccess('SDR'))
                 <li class="nav-item active dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -64,7 +69,7 @@
                     @endif
                     </div>
                 </li>
-                @endif
+                @endif 
                 @if (Auth::user()->hasAccess('A'))
                 <li class="nav-item active dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

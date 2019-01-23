@@ -13,9 +13,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RegionSeeder::class);
         $this->call(StaffSeeder::class);
+        $this->call(PartaiSeeder::class);
+        $this->call(CalegSeeder::class);
 
-    	// factory(App\KoorL1::class, 10)->create();
-     //    factory(App\KoorL2::class, 100)->create();
-     //    factory(App\Pemilih::class, 1000)->create();
+    	factory(App\KoorL1::class, 2)->create();
+        factory(App\KoorL2::class, 20)->create();
+        factory(App\Pemilih::class, 100)->create();
+        factory(App\Suara::class, 1000)->create();
     }
 }

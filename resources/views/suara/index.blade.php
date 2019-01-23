@@ -14,7 +14,7 @@
             </span>
             <!-- <a class="btn btn-lg btn-danger float-right ml-2" href="{!! route('cetak',['from'=>'suara']) !!}">PDF</a> -->
             @if (Auth::user()->hasAccess('SUC'))
-            <a class="btn btn-lg btn-primary float-right ml-2" href="{!! route('suara.report',['by'=>$by,'id'=>$id]) !!}">Peta Suara</a>
+            <a class="btn btn-lg btn-primary float-right ml-2" href="{!! route('suara.tabel') !!}">Tabel Suara</a>
             <a class="btn btn-lg btn-success float-right" href="{!! route('suara.create') !!}">Tambah Data</a>
             @endif
 		</div>

@@ -17,7 +17,6 @@ Route::get('/', function () {
   return view('welcome');
 })->name('index-page')->middleware('auth');
 
-
 Route::get('koorl1/fetch', [
 	'as'=>'koorl1.fetch',
 	'uses'=>'KoorL1Controller@fetch'
@@ -111,6 +110,7 @@ Route::get('suara/desa/{iddesa}/fetch', 'SuaraController@fetchForDesa')->name('s
 Route::get('suara/banjar/{idbanjar}', 'SuaraController@showByBanjar')->name('suara.banjar');
 Route::get('suara/banjar/{idbanjar}/fetch', 'SuaraController@fetchForBanjar')->name('suara.banjar.fetch');
 Route::get('suara/report/{by}/{id}', 'SuaraController@report')->name('suara.report');
+Route::get('suara/tabel', 'SuaraController@tabel')->name('suara.tabel');
 Route::resource('suara','SuaraController');
 
 Route::get('cetak/{from}/{source}/{id}','CetakController@perform')->name('cetak.detail');

@@ -123,10 +123,6 @@
                             @if (Auth::user()->hasAccess('KKR'))
                             <li><a class="h4 text-info" href="{{route('keykomunitas.index')}}">Key Person Komunitas</a></li>
                             @endif
-                            @if (Auth::user()->hasAccess('SUR'))
-                            <hr/>
-                            <li><a class="h4 text-info" href="{{route('suara.index')}}">Input Suara Pemilih</a></li>
-                            @endif
                         </ul>
                     </div>
                     <div class="mt-4 col-md-6">
@@ -149,6 +145,10 @@
                             <li><a class="h4 text-info" href="{{route('relawan.report',['all','all'])}}">Relawan</a></li>
                             @endif
                         </ul>
+
+                        @if (Auth::user()->hasAccess('SUR'))
+                        <h4 class="mt-4"><a class="h4 text-info" href="{{route('suara.index')}}">* Input Suara Pemilih *</a></h4>
+                        @endif
                     </div>
                     <div class="mt-4 col-md-6">
                         <h4>Data Statistik</h4>
@@ -208,7 +208,6 @@
         </div> -->
         <footer class="footer" style="position: absolute;bottom:0;font-size: 11px">
             Yang masih kurang: 
- Tabel data perolehan suara per caleg per tps
 | impor data pemilih (dr .xls atau .csv)
 | ekspor data ke .xls atau csv
 | backup data (ke .sql atau apa aja)

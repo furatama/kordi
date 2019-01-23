@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Auth;
 use Validator;
 use App\Suara;
+use App\Partai;
+use App\Caleg;
+use App\TPS;
+use App\Desa;
 use Illuminate\Http\Request;
 use Kris\LaravelFormBuilder\FormBuilder;
 use Yajra\Datatables\Datatables;
@@ -52,6 +57,78 @@ class SuaraController extends Controller
         }
 
         echo json_encode($request);
+    }
+
+    public function tabel() {
+
+        // $query = DB::select("SELECT 
+
+
+        //     SELECT banjar.id,banjar.nama,l1n,l2n,pn FROM banjar 
+        //                     LEFT JOIN (SELECT idbanjar,COUNT(*) as l1n FROM koorl1 GROUP BY idbanjar) l1 
+        //                     ON l1.idbanjar = banjar.id
+        //                     LEFT JOIN (SELECT idbanjar,COUNT(*) as l2n FROM koorl2 GROUP BY idbanjar) l2 
+        //                     ON l2.idbanjar = banjar.id 
+        //                     LEFT JOIN (SELECT idbanjar,COUNT(*) as pn FROM pemilih GROUP BY idbanjar) p 
+        //                     ON p.idbanjar = banjar.id 
+        //                     GROUP BY banjar.id");
+
+        // $data = [
+        //     [
+        //         'idpartai' => 1,
+        //         'caleg' => [
+        //             [
+        //                 'nourut' => 1,
+        //                 'nama' => 'nama',
+        //             ],
+        //             [
+        //                 'nourut' => 2,
+        //                 'nama' => 'nama',
+        //             ],
+        //         ]
+        //     ]
+        // ];
+
+        $data = [];
+
+        $partai = Partai::all();
+        foreach ($partai as $key => $value) {
+            $idp = $value['id'];
+            $data[] = [
+                'idpartai' => $value['id'],
+                'nourut' => $value['nourut'],
+                'lambang' => $value['lambang'],
+                'nama' => $value['nama'],
+            ];
+
+            $calegs = Caleg::where('idpartai','=',$idp)->get();
+            // dump($calegs);
+            foreach ($calegs as $key => $value) {
+                $query = DB::select("
+                    SELECT ifnull(suara,0) as suara,desa.id as iddesa FROM desa LEFT JOIN (SELECT SUM(suara.suara) as suara, desa.id as iddesa FROM desa 
+                    INNER JOIN banjar ON desa.id = banjar.iddesa
+                    INNER JOIN tps ON banjar.id = tps.idbanjar
+                    INNER JOIN suara ON tps.id = suara.idtps
+                    WHERE suara.idcaleg = " . $value['id'] . "
+                    GROUP BY desa.id) sr ON sr.iddesa = desa.id
+                    ");
+                $data[] = [
+                    'nourut' => $value['nourut'],
+                    'foto' => $value['foto'],
+                    'nama' => $value['nama'],
+                    'suara' => $query,
+                ];
+                // dump($query);
+            }
+        }
+        // die();
+
+        $cols = Desa::all();
+
+        return view('suara.peta',compact('data','cols'));
+
+        // dd($data);
+
     }
 
     /**
