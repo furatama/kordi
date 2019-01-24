@@ -67,6 +67,12 @@
                     @if (Auth::user()->hasAccess('SBR'))
                       <a class="dropdown-item" href="{{route('stats.desa')}}">Statistik Per Banjar</a>
                     @endif
+                    @if (Auth::user()->hasAccess('S1R'))
+                        <a class="dropdown-item" href="{{route('stats.koorl1')}}">Statistik Per Koor Utama</a>
+                    @endif
+                    @if (Auth::user()->hasAccess('S2R'))
+                        <a class="dropdown-item" href="{{route('stats.koorl2')}}">Statistik Per Asisten</a>
+                    @endif
                     </div>
                 </li>
                 @endif 

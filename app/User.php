@@ -31,6 +31,8 @@ class User extends Authenticatable
 
     public function hasAccess($access) {
         $accessList = explode(',', $this->access);
+        if (in_array('A', $accessList))
+            return true;
         return in_array($access, $accessList);
     }
 

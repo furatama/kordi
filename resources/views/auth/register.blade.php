@@ -232,6 +232,18 @@
                                     </label>
                                   </div>
                                   <div class="form-check">
+                                    <input class="form-check-input" name="access[]" type="checkbox" id="gridCheck13" value="S1R" checked>
+                                    <label class="form-check-label" for="gridCheckB13">
+                                      Statistik KoorL1 (Read)
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" name="access[]" type="checkbox" id="gridCheck14" value="S2R" checked>
+                                    <label class="form-check-label" for="gridCheckB14">
+                                      Statistik KoorL2 (Read)
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
                                     <input class="form-check-input" name="access[]" type="checkbox" id="gridCheck15" value="A">
                                     <label class="form-check-label" for="gridCheck15">
                                       As Admin

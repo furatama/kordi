@@ -159,6 +159,12 @@
                             @if (Auth::user()->hasAccess('SBR'))
                             <li><a class="h4 text-info" href="{{route('stats.desa')}}">Statistik Per Banjar</a></li>
                             @endif
+                            @if (Auth::user()->hasAccess('S1R'))
+                            <li><a class="h4 text-info" href="{{route('stats.koorl1')}}">Statistik Per Koor Utama</a></li>
+                            @endif
+                            @if (Auth::user()->hasAccess('S2R'))
+                            <li><a class="h4 text-info" href="{{route('stats.koorl2')}}">Statistik Per Asisten</a></li>
+                            @endif
                         </ul>
                     </div>
                     @if (Auth::user()->hasAccess('A'))

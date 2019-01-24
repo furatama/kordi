@@ -37,6 +37,22 @@ class StatistikController extends Controller
 		return view('stats.index',compact('mtableref','reg'));
 	}
 
+	public function koorl1() {
+		if (!Auth::user()->hasAccess('SBR'))
+      return redirect('/');
+		$mtableref = route('stats.koorl1.fetch');
+		$reg = 'koorl1';
+		return view('stats.koorl1',compact('mtableref','reg'));
+	}
+
+	public function koorl2() {
+		if (!Auth::user()->hasAccess('SBR'))
+      return redirect('/');
+		$mtableref = route('stats.koorl2.fetch');
+		$reg = 'koorl2';
+		return view('stats.koorl2',compact('mtableref','reg'));
+	}
+
 	public function desaID($id) {
 		if (!Auth::user()->hasAccess('SBR'))
       return redirect('/');
@@ -55,6 +71,31 @@ class StatistikController extends Controller
 													LEFT JOIN (SELECT iddesa,COUNT(*) as pn FROM pemilih GROUP BY iddesa) p 
 													ON p.iddesa = desa.id 
 													GROUP BY desa.id");
+
+      return Datatables::of($query)->make(true);
+  }
+
+  public function fetchL1()
+  {
+      $query = DB::select("SELECT koorl1.id,koorl1.namalengkap,l2n,SUM(pn) as pn,l2n+SUM(pn) as total FROM koorl1
+													LEFT JOIN (SELECT idl1,COUNT(*) as l2n FROM koorl2 GROUP BY idl1) l2 
+													ON l2.idl1 = koorl1.id
+													LEFT JOIN (SELECT koorl2.id,koorl2.idl1,pn FROM koorl2
+														LEFT JOIN (SELECT idl2,COUNT(*) as pn FROM pemilih GROUP BY idl2) p 
+														ON p.idl2 = koorl2.id 
+														GROUP BY koorl2.id) px
+													ON px.idl1 = koorl1.id
+													GROUP BY koorl1.id");
+
+      return Datatables::of($query)->make(true);
+  }
+
+  public function fetchL2()
+  {
+      $query = DB::select("SELECT koorl2.id,koorl2.namalengkap,pn FROM koorl2
+														LEFT JOIN (SELECT idl2,COUNT(*) as pn FROM pemilih GROUP BY idl2) p 
+														ON p.idl2 = koorl2.id 
+														GROUP BY koorl2.id");
 
       return Datatables::of($query)->make(true);
   }
