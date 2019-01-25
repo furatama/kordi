@@ -41,7 +41,7 @@ class StatistikController extends Controller
 		if (!Auth::user()->hasAccess('SBR'))
       return redirect('/');
 		$mtableref = route('stats.harian.fetch');
-		$reg = 'tanggal';
+		$reg = 'harian';
 		return view('stats.index',compact('mtableref','reg'));
 	}
 

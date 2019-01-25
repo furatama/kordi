@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        <a class="btn btn-lg btn-primary float-right ml-2" href="/stats/{{$reg}}/report">Report</a>
         <table class="table table-bordered" id="main-table">
             <thead>
                 <tr>
@@ -13,6 +14,16 @@
                     <th>Pemilih</th>
                 </tr>
             </thead>
+            @if ($reg == 'harian')
+            <tfoot>
+                <tr>
+                    <th colspan="3" align="right">Total : </th>
+                    <th>{{App\Koorl1::count()}}</th>
+                    <th>{{App\Koorl2::count()}}</th>
+                    <th>{{App\Pemilih::count()}}</th>
+                </tr>
+            </tfoot>
+            @endif
         </table>
     </div>
 @stop

@@ -61,7 +61,7 @@ $(function() {
     var table = $('#main-table').DataTable({
         lengthMenu: [ 15 ],
         processing: true,
-        serverSide: true,
+        // serverSide: true,
         // searching: false,
         lengthChange: false,
         ajax: '{{$mtableref}}',
@@ -74,7 +74,11 @@ $(function() {
                 }
             },
             { data: 'nama', name: 'nama'},
-            { data: '{{$parent}}.nama', name: '{{$parent}}.nama'},
+            { data: '{{$parent}}.nama', name: '{{$parent}}.nama',
+                render: function(data, type, row, meta) {
+                    return data == undefined || data == null ? '-' : data
+                }
+            },
             { 
                 mdata: 'action', name: 'action', orderable: false, searchable: false,
                 render: function(data, type, row, meta) {
