@@ -37,6 +37,14 @@ class StatistikController extends Controller
 		return view('stats.index',compact('mtableref','reg'));
 	}
 
+	public function harian() {
+		if (!Auth::user()->hasAccess('SBR'))
+      return redirect('/');
+		$mtableref = route('stats.harian.fetch');
+		$reg = 'banjar';
+		return view('stats.index',compact('mtableref','reg'));
+	}
+
 	public function koorl1() {
 		if (!Auth::user()->hasAccess('SBR'))
       return redirect('/');
@@ -110,6 +118,34 @@ class StatistikController extends Controller
 													LEFT JOIN (SELECT idbanjar,COUNT(*) as pn FROM pemilih GROUP BY idbanjar) p 
 													ON p.idbanjar = banjar.id 
 													GROUP BY banjar.id");
+
+      return Datatables::of($query)->make(true);
+  }
+
+  public function fetchHarian()
+  {
+      //  $query = DB::select("SELECT banjar.id,banjar.nama,l1n,l2n,pn FROM banjar 
+						// 							LEFT JOIN (SELECT idbanjar,COUNT(*) as l1n FROM koorl1 GROUP BY idbanjar) l1 
+						// 							ON l1.idbanjar = banjar.id
+						// 							LEFT JOIN (SELECT idbanjar,COUNT(*) as l2n FROM koorl2 GROUP BY idbanjar) l2 
+						// 							ON l2.idbanjar = banjar.id 
+						// 							LEFT JOIN (SELECT idbanjar,COUNT(*) as pn FROM pemilih GROUP BY idbanjar) p 
+						// 							ON p.idbanjar = banjar.id 
+						// 							GROUP BY banjar.id");
+      // dd($query);
+
+      $query = [];
+      for ($i=0; $i < 25; $i++) { 
+      	$query[] = [
+      		"id" => $i,
+      		"nama" => "ASDF",
+      		"l1n" => 5,
+      		"l2n" => 5,
+      		"pn" => 5,
+      	];
+      }
+
+      // dd($query);
 
       return Datatables::of($query)->make(true);
   }

@@ -41,8 +41,8 @@
 <script>
 $(function() {
     var table = $('#main-table').DataTable({
-        // lengthMenu: [ [3, 5, 15, -1], [3, 5, 15, "All"] ],
-        lengthMenu: [ 10,20,30 ],
+        lengthMenu: [ [50, 100, -1], [50, 100, "All"] ],
+        // lengthMenu: [ 50,100,30 ],
         processing: true,
         serverSide: true,
         ajax: '{!! isset($mtableref) ? $mtableref : route('koorl1.fetch') !!}',
@@ -62,9 +62,21 @@ $(function() {
             	}
             },
             { data: 'alamat', name: 'alamat' },
-            { data: 'banjar.nama', name: 'banjar.nama' },
-            { data: 'desa.nama', name: 'desa.nama' },
-            { data: 'tps.nama', name: 'tps.nama' },
+            { data: 'banjar.nama', name: 'banjar.nama',
+                render: function(data, type, row, meta) {
+                    return data == undefined || data == null ? '-' : data
+                }
+             },
+            { data: 'desa.nama', name: 'desa.nama' ,
+                render: function(data, type, row, meta) {
+                    return data == undefined || data == null ? '-' : data
+                }
+            },
+            { data: 'tps.nama', name: 'tps.nama',
+                render: function(data, type, row, meta) {
+                    return data == undefined || data == null ? '-' : data
+                }
+            },
             { 
             	data: 'kontak', name: 'kontak', 
             	render: function(data, type, row, meta) {

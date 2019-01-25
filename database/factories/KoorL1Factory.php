@@ -16,5 +16,6 @@ $factory->define(App\KoorL1::class, function (Faker $faker) {
         'idbanjar' => rand(1,App\Banjar::count()),
         'iddesa' => rand(1,App\Desa::count()),
         'idtps' => rand(1,App\TPS::count()),
+        'created_at' => date('Y-m-d H:i:s',strtotime("2019-01-".rand(10,15))),
     ];
 });

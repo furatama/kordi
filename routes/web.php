@@ -121,12 +121,14 @@ Route::get('stats/desa','StatistikController@desa')->name('stats.desa');
 Route::get('stats/desa/{id}','StatistikController@desaID')->name('stats.desa.id');
 Route::get('stats/koorl1','StatistikController@koorl1')->name('stats.koorl1');
 Route::get('stats/koorl2','StatistikController@koorl2')->name('stats.koorl2');
+Route::get('stats/harian','StatistikController@harian')->name('stats.harian');
 
 Route::get('stats/fetch','StatistikController@fetch')->name('stats.kecamatan.fetch');
 Route::get('stats/fetch/desa','StatistikController@fetchDesa')->name('stats.desa.fetch');
 Route::get('stats/fetch/desa/{id}','StatistikController@fetchDesaID')->name('stats.desa.id.fetch');
 Route::get('stats/fetch/koorl1','StatistikController@fetchL1')->name('stats.koorl1.fetch');
 Route::get('stats/fetch/koorl2','StatistikController@fetchL2')->name('stats.koorl2.fetch');
+Route::get('stats/fetch/harian','StatistikController@fetchHarian')->name('stats.harian.fetch');
 
 Route::get('master/user','UserController@index')->name('master.user')->middleware('auth');
 Route::get('master/desa','DesaController@index')->name('master.desa')->middleware('auth');

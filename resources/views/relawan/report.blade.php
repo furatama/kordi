@@ -63,11 +63,7 @@ $(function() {
             	}
             },
             { data: 'alamat', name: 'alamat' },
-            { data: 'keterangan', name: 'keterangan',
-                render: function(data, type, row, meta) {
-                    return data.length > 30 ? data.substr(0,30) + '...' : data.substr
-                }
-            },
+            { data: 'keterangan', name: 'keterangan'},
             { 
             	data: 'kontak', name: 'kontak', 
             	render: function(data, type, row, meta) {

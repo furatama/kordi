@@ -47,8 +47,8 @@
 <script>
 $(function() {
     var table = $('#main-table').DataTable({
-        // lengthMenu: [ [3, 5, 15, 30, 100, -1], [3, 5, 15, 30, 100, "All"] ],
-        lengthMenu: [ 10,20,50,100 ],
+        lengthMenu: [ [50, 100, -1], [50, 100, "All"] ],
+        // lengthMenu: [ 10,20,50,100 ],
         processing: true,
         serverSide: true,
         ajax: '{{$mtableref}}',
@@ -69,9 +69,21 @@ $(function() {
             	}
             },
             { data: 'alamat', name: 'alamat' },
-            { data: 'banjar.nama', name: 'banjar.nama' },
-            { data: 'desa.nama', name: 'desa.nama' },
-            { data: 'tps.nama', name: 'tps.nama' },
+            { data: 'banjar.nama', name: 'banjar.nama',
+                render: function(data, type, row, meta) {
+                    return data == undefined || data == null ? '-' : data
+                }
+             },
+            { data: 'desa.nama', name: 'desa.nama' ,
+                render: function(data, type, row, meta) {
+                    return data == undefined || data == null ? '-' : data
+                }
+            },
+            { data: 'tps.nama', name: 'tps.nama',
+                render: function(data, type, row, meta) {
+                    return data == undefined || data == null ? '-' : data
+                }
+            },
             { 
             	data: 'kontak', name: 'kontak', 
             	render: function(data, type, row, meta) {

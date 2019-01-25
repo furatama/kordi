@@ -62,7 +62,7 @@ $(function() {
         lengthMenu: [ 15 ],
         processing: true,
         serverSide: true,
-        searching: false,
+        // searching: false,
         lengthChange: false,
         ajax: '{{$mtableref}}',
         aoColumns: [

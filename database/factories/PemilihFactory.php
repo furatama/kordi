@@ -17,5 +17,6 @@ $factory->define(App\Pemilih::class, function (Faker $faker) {
         'iddesa' => rand(1,App\Desa::count()),
         'idtps' => rand(1,App\TPS::count()),
         'idl2' => rand(1,App\KoorL2::count()),
+        'created_at' => date('Y-m-d H:i:s',strtotime("2019-01-".rand(10,15))),
     ];
 });
