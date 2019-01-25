@@ -101,7 +101,7 @@ $(function() {
                     obj = JSON.parse(cnvtd);
             		Object.keys(obj).forEach(function(k){
                         if (obj[k] != null && obj[k]['kontak'] != null)
-					       s = `${s} <b>${obj[k]['tipe']}</b>: ${obj[k]['kontak']} <br/>`;
+					       s = `${s} ${obj[k]['kontak']} <br/>`;
 					}); 
             		return s;
             	}
