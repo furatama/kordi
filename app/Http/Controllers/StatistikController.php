@@ -41,7 +41,7 @@ class StatistikController extends Controller
 		if (!Auth::user()->hasAccess('SBR'))
       return redirect('/');
 		$mtableref = route('stats.harian.fetch');
-		$reg = 'banjar';
+		$reg = 'tanggal';
 		return view('stats.index',compact('mtableref','reg'));
 	}
 
@@ -124,27 +124,12 @@ class StatistikController extends Controller
 
   public function fetchHarian()
   {
-      //  $query = DB::select("SELECT banjar.id,banjar.nama,l1n,l2n,pn FROM banjar 
-						// 							LEFT JOIN (SELECT idbanjar,COUNT(*) as l1n FROM koorl1 GROUP BY idbanjar) l1 
-						// 							ON l1.idbanjar = banjar.id
-						// 							LEFT JOIN (SELECT idbanjar,COUNT(*) as l2n FROM koorl2 GROUP BY idbanjar) l2 
-						// 							ON l2.idbanjar = banjar.id 
-						// 							LEFT JOIN (SELECT idbanjar,COUNT(*) as pn FROM pemilih GROUP BY idbanjar) p 
-						// 							ON p.idbanjar = banjar.id 
-						// 							GROUP BY banjar.id");
-      // dd($query);
-
-      $query = [];
-      for ($i=0; $i < 25; $i++) { 
-      	$query[] = [
-      		"id" => $i,
-      		"nama" => "ASDF",
-      		"l1n" => 5,
-      		"l2n" => 5,
-      		"pn" => 5,
-      	];
-      }
-
+       $query = DB::select("SELECT tgl as nama, SUM(l1n) as l1n, SUM(l2n) as l2n, SUM(pn) as pn FROM (SELECT date(created_at) as tgl, count(*)  as l1n, 0 as l2n, 0 as pn from koorl1 GROUP by date(created_at)
+					union all
+					SELECT date(created_at) as tgl, 0 as l1n, count(*) as l2n, 0 as pn from koorl2 GROUP by date(created_at)
+					union all
+					SELECT date(created_at) as tgl, 0 as l1n, 0 as l2n, count(*) as pn from pemilih GROUP by date(created_at)) unity 
+					GROUP by tgl");
       // dd($query);
 
       return Datatables::of($query)->make(true);

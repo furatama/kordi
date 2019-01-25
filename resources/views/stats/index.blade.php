@@ -27,7 +27,12 @@ $(function() {
         serverSide: true,
         ajax: '{{$mtableref}}',
         aoColumns: [
-            { data: 'id', name: 'id', visible: false, orderable: false, searchable: false },
+            { data: 'id', name: 'id', visible: false, orderable: false, searchable: false,
+                render: function(data, type, row, meta) {
+                    if (data == null) return -1;
+                    return data;
+                }
+            },
             { 
                 mdata: 'num', name: 'num',  
                 render: function(data, type, row, meta) {
@@ -36,25 +41,28 @@ $(function() {
             },
             { data: 'nama', name: 'nama', 
                 render: function(data, type, row, meta) {
-                    if ('{{$reg}}' == 'banjar') return data;
+                    if ('{{$reg}}' != 'desa') return data;
                     return `<a href="stats/{{$reg}}/${row.id}" style="display:block">${data}</a>`
                 }
             },
             { data: 'l1n', name: 'l1n',
                 render: function(data, type, row, meta) {
                     if (data == null)  return 0;
+                    if (row.id == null) return data;
                     return `<a href="/koorl1/{{$reg}}/${row.id}" style="display:block">${data}</a>`
                 }
             },
             { data: 'l2n', name: 'l2n',
                 render: function(data, type, row, meta) {
                     if (data == null)  return 0;
+                    if (row.id == null) return data;
                     return `<a href="/koorl2/{{$reg}}/${row.id}" style="display:block">${data}</a>`
                 }
             },
             { data: 'pn', name: 'pn',
                 render: function(data, type, row, meta) {
                     if (data == null)  return 0;
+                    if (row.id == null) return data;
                     return `<a href="/pemilih/{{$reg}}/${row.id}" style="display:block">${data}</a>`
                 } 
             },

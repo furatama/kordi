@@ -165,6 +165,9 @@
                             @if (Auth::user()->hasAccess('S2R'))
                             <li><a class="h4 text-info" href="{{route('stats.koorl2')}}">Statistik Per Asisten</a></li>
                             @endif
+                            @if (Auth::user()->hasAccess('SHR'))
+                            <li><a class="h4 text-info" href="{{route('stats.harian')}}">Statistik Harian</a></li>
+                            @endif
                         </ul>
                     </div>
                     @if (Auth::user()->hasAccess('A'))
