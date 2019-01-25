@@ -17,7 +17,8 @@
         <![endif]-->
         <style type="text/css">
             body {
-                background-color:white
+                background-color:white;
+                font-size:18px;
             }
 
             th {
@@ -26,7 +27,7 @@
         </style>
     </head>
     <body>
-        <div class="container-fluid my-3">
+        <div class="my-3">
             @yield('content')
         </div>
 
