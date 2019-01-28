@@ -122,6 +122,7 @@ Route::get('stats/desa/{id}','StatistikController@desaID')->name('stats.desa.id'
 Route::get('stats/koorl1','StatistikController@koorl1')->name('stats.koorl1');
 Route::get('stats/koorl2','StatistikController@koorl2')->name('stats.koorl2');
 Route::get('stats/harian','StatistikController@harian')->name('stats.harian');
+Route::get('stats/{tipe}/report','StatistikController@report')->name('stats.report');
 
 Route::get('stats/fetch','StatistikController@fetch')->name('stats.kecamatan.fetch');
 Route::get('stats/fetch/desa','StatistikController@fetchDesa')->name('stats.desa.fetch');

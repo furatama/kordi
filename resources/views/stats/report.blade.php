@@ -1,14 +1,23 @@
-@extends('app')
+@extends('app-report')
+
+@section('title')
+    {{ucwords($reg)}}]
+@endsection
 
 @section('content')
-    <div class="container">
-        @if ($reg == 'harian')
-        <a class="btn btn-lg btn-primary float-right ml-2" href="/stats/{{$reg}}/report">Report</a>
-        @endif
+    <div class="container-fluid">
+        <div class="my-3 clearfix">
+            <span class="h3 float-left">
+                Laporan {{ucwords($reg)}}
+                <h2></h2>
+                <hr class="mb-0" />
+            </span>
+            <button class="btn btn-lg btn-primary float-right d-print-none" onclick="window.print()">Print</button>
+        </div>
         <table class="table table-bordered" id="main-table">
             <thead>
                 <tr>
-                	<th>ID</th>
+                    <th>ID</th>
                     <th width="20">No</th>
                     <th>{{ucfirst($reg)}}</th>
                     <th>Koor Utama</th>
@@ -34,8 +43,11 @@
 <script>
 $(function() {
     var table = $('#main-table').DataTable({
-        lengthMenu: [ [-1], ["All"] ],
-        // lengthMenu: [ 10 ],
+        lengthChange: false,
+        ordering: true,
+        paging: false,
+        searching: false,
+        info: false,
         processing: true,
         serverSide: true,
         ajax: '{{$mtableref}}',
@@ -81,6 +93,13 @@ $(function() {
             },
         ],
     });
+
+    table.on( 'order.dt search.dt', function () {
+        table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        });
+    } ).draw();
+
 });
 </script>
 @endpush

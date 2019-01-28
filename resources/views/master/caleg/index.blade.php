@@ -19,7 +19,7 @@
                 	<th width="100">Partai</th>
                     <th>No Urut</th>
                     <th>Nama</th>
-                    <th>Foto</th>
+                    <!-- <th>Foto</th> -->
                     <th>Action</th>
                 </tr>
             </thead>
@@ -45,11 +45,11 @@ $(function() {
         	{ data: 'partai.singkatan', name: 'partai.singkatan' },
             { data: 'nourut', name: 'nourut' },
             { data: 'nama', name: 'nama' },
-            { data: 'foto', name: 'foto',
-                render: function(data, type, row, meta) {
-                    return `<img src="{{asset('storage')}}/${data}" width="100">`
-                }
-            },
+            // { data: 'foto', name: 'foto',
+            //     render: function(data, type, row, meta) {
+            //         return `<img src="{{asset('storage')}}/${data}" width="100">`
+            //     }
+            // },
             { 
             	mdata: 'action', name: 'action', orderable: false, searchable: false,
             	render: function(data, type, row, meta) {

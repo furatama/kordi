@@ -72,7 +72,7 @@ class KoorL2Controller extends Controller
 
         $this->validate($request, [
             'namalengkap' => 'required',
-            'nik' => 'required|unique:koorl1|max:16|min:16',
+            'nik' => 'required|unique:koorl2|max:16|min:16',
         ], [
             'nik.required' => 'NIK masih kosong.',
             'nik.max' => 'NIK harus 16 digit.',

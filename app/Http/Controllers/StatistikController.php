@@ -124,7 +124,7 @@ class StatistikController extends Controller
 
   public function fetchHarian()
   {
-       $query = DB::select("SELECT tgl as nama, SUM(l1n) as l1n, SUM(l2n) as l2n, SUM(pn) as pn FROM (SELECT date(created_at) as tgl, count(*)  as l1n, 0 as l2n, 0 as pn from koorl1 GROUP by date(created_at)
+       $query = DB::select("SELECT strftime('%d/%m/%Y', datetime(tgl)) as nama, SUM(l1n) as l1n, SUM(l2n) as l2n, SUM(pn) as pn FROM (SELECT date(created_at) as tgl, count(*)  as l1n, 0 as l2n, 0 as pn from koorl1 GROUP by date(created_at)
 					union all
 					SELECT date(created_at) as tgl, 0 as l1n, count(*) as l2n, 0 as pn from koorl2 GROUP by date(created_at)
 					union all
@@ -148,6 +148,15 @@ class StatistikController extends Controller
 													GROUP BY banjar.id");
 
       return Datatables::of($query)->make(true);
+  }
+
+  public function report($tipe) 
+  {
+  		if ($tipe != 'harian')
+  			return redirect()->route('index-page');
+  		$mtableref = route('stats.harian.fetch');
+			$reg = 'harian';
+			return view('stats.report',compact('mtableref','reg'));
   }
 
 }

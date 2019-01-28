@@ -62,7 +62,7 @@ $(function() {
         ajax: '{{$mtableref}}',
         aoColumns: [
             { 
-                mdata: 'no', name: 'no',  
+                mdata: 'no', name: 'no', searchable: false,
                 render: function(data, type, row, meta) {
                     return meta.row + 1;
                 }
