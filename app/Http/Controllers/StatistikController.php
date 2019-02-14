@@ -100,7 +100,8 @@ class StatistikController extends Controller
 
   public function fetchL2()
   {
-      $query = DB::select("SELECT koorl2.id,koorl2.namalengkap,pn FROM koorl2
+      $query = DB::select("SELECT koorl1.namalengkap as l1,koorl2.id,koorl2.namalengkap,pn FROM koorl2
+														LEFT JOIN koorl1 ON koorl1.id = koorl2.idl1
 														LEFT JOIN (SELECT idl2,COUNT(*) as pn FROM pemilih GROUP BY idl2) p 
 														ON p.idl2 = koorl2.id 
 														GROUP BY koorl2.id");

@@ -8,6 +8,7 @@
                 	<th>ID</th>
                     <th width="20">No</th>
                     <th>Asisten</th>
+                    <th>Koor Utama</th>
                     <th>Pemilih</th>
                 </tr>
             </thead>
@@ -33,6 +34,7 @@ $(function() {
                 }
             },
             { data: 'namalengkap', name: 'namalengkap'},
+            { data: 'l1', name: 'l1'},
             { data: 'pn', name: 'pn',
                 render: function(data, type, row, meta) {
                     if (data == null)  return 0;
