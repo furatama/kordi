@@ -34,7 +34,7 @@ class StatistikController extends Controller
       return redirect('/');
 		$mtableref = route('stats.desa.fetch');
 		$reg = 'banjar';
-		return view('stats.index',compact('mtableref','reg'));
+		return view('stats.desa',compact('mtableref','reg'));
 	}
 
 	public function harian() {
@@ -111,14 +111,15 @@ class StatistikController extends Controller
 
   public function fetchDesa()
   {
-      $query = DB::select("SELECT banjar.id,banjar.nama,l1n,l2n,pn FROM banjar 
-													LEFT JOIN (SELECT idbanjar,COUNT(*) as l1n FROM koorl1 GROUP BY idbanjar) l1 
-													ON l1.idbanjar = banjar.id
-													LEFT JOIN (SELECT idbanjar,COUNT(*) as l2n FROM koorl2 GROUP BY idbanjar) l2 
-													ON l2.idbanjar = banjar.id 
-													LEFT JOIN (SELECT idbanjar,COUNT(*) as pn FROM pemilih GROUP BY idbanjar) p 
-													ON p.idbanjar = banjar.id 
-													GROUP BY banjar.id");
+      $query = DB::select("SELECT banjar.id,desa.nama as desa,banjar.nama,l1n,l2n,pn FROM banjar 
+			LEFT JOIN (SELECT idbanjar,COUNT(*) as l1n FROM koorl1 GROUP BY idbanjar) l1 
+			ON l1.idbanjar = banjar.id
+			LEFT JOIN (SELECT idbanjar,COUNT(*) as l2n FROM koorl2 GROUP BY idbanjar) l2 
+			ON l2.idbanjar = banjar.id 
+			LEFT JOIN (SELECT idbanjar,COUNT(*) as pn FROM pemilih GROUP BY idbanjar) p 
+			ON p.idbanjar = banjar.id 
+			LEFT JOIN desa ON desa.id = banjar.iddesa
+			GROUP BY banjar.id");
 
       return Datatables::of($query)->make(true);
   }
